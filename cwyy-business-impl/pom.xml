@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>cwyy-business-impl</artifactId>
+	<packaging>jar</packaging>
+	<name>cwyy-business-impl</name>
+	<url>http://maven.apache.org</url>
+	<parent>
+		<groupId>com.cwyy</groupId>
+		<artifactId>cwyy-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<this.version>0.0.1-SNAPSHOT</this.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.cwyy</groupId>
+			<artifactId>cwyy-business-api</artifactId>
+			<version>${this.version}</version>
+		</dependency>
+		<!-- 日志配置 -->
+		<dependency>
+			<groupId>com.cwyy</groupId>
+			<artifactId>cwyy-log</artifactId>
+			<version>${this.version}</version>
+		</dependency>
+	</dependencies>
+</project>
