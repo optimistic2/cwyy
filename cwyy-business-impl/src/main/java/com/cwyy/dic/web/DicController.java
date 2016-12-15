@@ -1,5 +1,7 @@
 package com.cwyy.dic.web;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -104,5 +106,17 @@ public class DicController {
 		result.setMsg("查询成功");
 		result.setData(dic);
 		return result;
+	}
+	
+	/**
+	 * 根据id批量删除
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "deleteDicByIds", method = RequestMethod.POST)
+	@ResponseBody
+	public SimpleResponse deleteDicByIds(@RequestBody List<String> ids) {
+		boolean flag = dicService.deleteDicByIds(ids);
+		return new SimpleResponse(flag);
 	}
 }

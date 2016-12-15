@@ -43,4 +43,11 @@ public interface IDicService {
 	 * @return
 	 */
 	List<DicVO> getDicByTypeCode(String code);
+
+	/**
+	 * 根据id删除字典
+	 * @param ids
+	 * @return
+	 */
+	boolean deleteDicByIds(List<String> ids);
 }

@@ -34,6 +34,8 @@ CREATE TABLE `cy_bd_dic` (
 
 LOCK TABLES `cy_bd_dic` WRITE;
 
+insert  into `cy_bd_dic`(`id`,`code`,`name`,`description`,`dic_id`,`create_time`,`update_time`) values ('40289fe9590184c60159019a991f0000','sex','性别','性别',NULL,'2016-12-15 16:30:26','2016-12-15 16:30:26');
+
 UNLOCK TABLES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -67,7 +67,11 @@ public class DicServiceImpl implements IDicService {
 	public DicVO getDicById(String id) {
 		DicVO vo = new DicVO();
 		DicEntity po = dicDao.findOne(id);
-		BeanUtils.copyProperties(po, vo);
+		if (null != po) {
+			BeanUtils.copyProperties(po, vo);
+		}else {
+			return null;
+		}
 		return vo;
 	}
 
@@ -83,7 +87,11 @@ public class DicServiceImpl implements IDicService {
 			}
 		};
 		DicEntity po = dicDao.findOne(spec);
-		BeanUtils.copyProperties(po, vo);
+		if (null != po) {
+			BeanUtils.copyProperties(po, vo);
+		}else {
+			return null;
+		}
 		return vo;
 	}
 
@@ -91,12 +99,18 @@ public class DicServiceImpl implements IDicService {
 	public List<DicVO> getDicByTypeCode(String code) {
 		List<DicVO> result = new ArrayList<>();
 		List<DicEntity> list = dicDao.getDicByTypeCode(code);
-		for(DicEntity po:list) {
+		for (DicEntity po : list) {
 			DicVO vo = new DicVO();
 			BeanUtils.copyProperties(po, vo);
 			result.add(vo);
 		}
 		return result;
+	}
+
+	@Override
+	public boolean deleteDicByIds(List<String> ids) {
+		dicDao.deleteBatch(ids);
+		return true;
 	}
 
 }
