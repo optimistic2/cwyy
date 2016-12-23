@@ -7,27 +7,40 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.cwyy.base.annotation.Refer;
 import com.cwyy.base.entity.BaseAutoIdEntity;
 
-
 /**
- * The persistent class for the cy_bd_dic database table.
  * 
+ * <p>
+ * <b>本类主要完成以下功能：</b>
+ * 
+ * <ul>
+ * <li>字典实体
+ * <li>...
+ * </ul>
+ *
+ * <p>
+ * 
+ * @version 本版本号
+ * @author cby
+ * @time 2016年12月20日 上午9:54:15
  */
+@Refer(id = "id", code = "code", name = "name", parentId = "dicId", referCode = "dic")
 @Entity
-@Table(name="cy_bd_dic")
-@NamedQuery(name="DicEntity.findAll", query="SELECT d FROM DicEntity d")
+@Table(name = "cy_bd_dic")
+@NamedQuery(name = "DicEntity.findAll", query = "SELECT d FROM DicEntity d")
 public class DicEntity extends BaseAutoIdEntity implements Serializable {
 
 	private static final long serialVersionUID = -3833096620163084820L;
 
 	private String code;
 
-	@Column(name="dic_id")
+	@Column(name = "dic_id")
 	private String dicId;
 
 	private String name;
-	
+
 	private String description;
 
 	public DicEntity() {
@@ -64,6 +77,5 @@ public class DicEntity extends BaseAutoIdEntity implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
 }

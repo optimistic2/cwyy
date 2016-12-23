@@ -18,6 +18,9 @@
 		</property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
-	
+	<!-- 加入获取上下文工具 -->
+	<bean class="com.cwyy.base.utils.ContextUtils"  lazy-init="false"/>	
 	<import resource="app-db.xml"/>
+	<import resource="app-cache.xml"/>
+	<import resource="app-bean.xml"/>
 </beans>

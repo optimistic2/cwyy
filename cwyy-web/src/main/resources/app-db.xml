@@ -56,6 +56,7 @@
 					<prop key="hibernate.show_sql">true</prop> <prop key="hibernate.format_sql">true</prop> 
 					<prop key="hibernate.hbm2ddl.auto">validate</prop> -->
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.ejb.interceptor">com.cwyy.base.interceptor.ReferInterceptor</prop>
 			</props>
 		</property>
 	</bean>

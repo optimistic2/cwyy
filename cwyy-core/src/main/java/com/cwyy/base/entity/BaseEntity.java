@@ -11,6 +11,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.cwyy.base.utils.BeanHelper;
+
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -813150714553235181L;
@@ -39,5 +41,14 @@ public class BaseEntity implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+	
+	public Object getAttributeValue(String name) {
+		return BeanHelper.getProperty(this, name);
+	}
+
+	public void setAttributeValue(String name, Object value) {
+		String key = name;
+		BeanHelper.setProperty(this, key, value);
 	}
 }
