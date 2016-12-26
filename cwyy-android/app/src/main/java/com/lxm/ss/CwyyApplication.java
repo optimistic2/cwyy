@@ -47,8 +47,8 @@ public class CwyyApplication extends Application {
         // 建立Volley的Http请求队列
         volleyQueue = Volley.newRequestQueue(getApplicationContext());
         // 异常处理的对象，当程序发生异常时，由此对象做最后的处理
-//		CrashHandler crashHandler = CrashHandler.getInstance();
-//		crashHandler.init(getApplicationContext());
+		CrashHandler crashHandler = CrashHandler.getInstance();
+		crashHandler.init(getApplicationContext());
 
 
 

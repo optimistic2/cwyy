@@ -2,9 +2,10 @@ package com.lxm.ss.http;
 
 import android.content.Context;
 import android.os.Handler;
-import android.webkit.CookieManager;
 
 import com.google.gson.reflect.TypeToken;
+import com.lxm.ss.pojo.HttpJsonResult;
+import com.lxm.ss.util.Zlog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,14 +16,14 @@ import java.util.Map;
  * Created by lxm on 2016/11/9.
  */
 
-public class ClubHttpPost {
+public class CwyyHttpPost {
 
-    private static ClubHttpPost httpPost;
+    private static CwyyHttpPost httpPost;
 
-    public static ClubHttpPost getInstance() {
+    public static CwyyHttpPost getInstance() {
 
         if (httpPost == null) {
-            httpPost = new ClubHttpPost();
+            httpPost = new CwyyHttpPost();
         }
         return httpPost;
     }
@@ -76,7 +77,6 @@ public class ClubHttpPost {
      * @param mRequestType
      * @param url
      * @param params       传入参数
-     * @param returnType   是否需要解析 @see RequestTypeConstant
      * @param mContext
      * @param mHandler
      * @param params       需解析的数据的类型，例如： 1.需解析list，new TypeReference<List<Makers>>() {} 2.需解析对象，new
@@ -84,16 +84,28 @@ public class ClubHttpPost {
      * @see RequestTypeConstant
      * @see NetUtils
      */
-    private synchronized <T> void doPostHttpPost(int mRequestType, String url, Map<String, String> params,
-                                                 int returnType, Context mContext, Handler mHandler, TypeToken<T> typeToken) {// TODO
+    private synchronized <T> void doPostHttpPostReturnJson(int mRequestType, String url, Map<String, String> params,
+                                                  Context mContext, Handler mHandler, TypeToken<T> typeToken) {// TODO
 
         //请求开始的时间
         Calendar begin = Calendar.getInstance();
         SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         dfs.setCalendar(begin);
 
-        VolleyListenerInterface<T> volleyListenerInterface = new VolleyListenerInterface<T>(mContext, mRequestType, returnType, mHandler,
+        VolleyListenerInterface<T> volleyListenerInterface = new VolleyListenerInterface<T>(mContext, mRequestType, RequestTypeConstant.RETURN_INITJSON_DATA, mHandler,
                 typeToken, url, begin);
+        HttpUtils.getInstance().executeJsonObjectHttpPost(mContext, url, params, volleyListenerInterface);
+    }
+    private synchronized <T> void doPostHttpPostReturnMessage(int mRequestType, String url, Map<String, String> params,
+                                                           Context mContext, Handler mHandler) {// TODO
+
+        //请求开始的时间
+        Calendar begin = Calendar.getInstance();
+        SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        dfs.setCalendar(begin);
+
+        VolleyListenerInterface<T> volleyListenerInterface = new VolleyListenerInterface<T>(mContext, mRequestType, RequestTypeConstant.RETURN_JSON_MESSAGE, mHandler,
+                null, url, begin);
         HttpUtils.getInstance().executeJsonObjectHttpPost(mContext, url, params, volleyListenerInterface);
     }
 
@@ -132,6 +144,28 @@ public class ClubHttpPost {
 
     }
 
+    /**
+     * 功能：	  新增、修改字典
+     url：	  /dic/addDic
+     id	String	字典id
+     code	String	字典code	是
+     dicId	String 	字典所在组
+     name	String	字典名称	是
+     description	String	字典描述
+     */
+
+    public void addDic(Context mContext, Handler mHandler) {
+        Zlog.ii("lxm httpost:updateVersion");
+
+        //设置参数，访问url获取json
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonrpc", "2.0");
+        params.put("method", "call");
+        params.put("id", "183584515");
+        params.put("parame", "");
+
+        doPostHttpPostReturnMessage(RequestTypeConstant.REQUEST_TYPE_GET_ADDDIC, NetUtils.CWYY_GET_ADDGIC , params, mContext, mHandler);
+    }
 
 
 }

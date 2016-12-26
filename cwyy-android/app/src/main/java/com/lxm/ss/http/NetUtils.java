@@ -22,24 +22,32 @@ public class NetUtils {
     public static final int NET_CONNECT_TYPE_WIFI = 1;
     public static final int NET_CONNECT_TYPE_MOBILE = 2;
 
-    // APP主页的网址；
-    /**
-     * 预发布环境
-     * @"http://app.fromfactory.club/"
-    #define COOKIE_DOMAIN @".fromfactory.club"
-    //#define HOST @"http://112.124.99.208:8000/"
-    //#define HOST @"http://10.135.198.206:8000/" // za
-    //#define HOST @"http://47.88.85.20:8000/"
-    //#define HOST @"http://app.fromfactory.club:9000/"
-     */
-//    public static final String APP_MAIN_URL = "http://47.88.85.20:8000/";
-//    public static final String APP_MAIN_URL = "http://10.135.198.206:8000/";
-//    public static final String APP_MAIN_URL = "http://112.124.99.208:8000/";
     /**
      * 线上
      */
 
-    public static final String APP_MAIN_URL = "http://app.fromfactory.club/";
+    public static final String APP_MAIN_URL = "http://optimistic2.55555.io:32162/";
+
+    /**
+     * 	  新增、修改字典
+     */
+    public static final String CWYY_GET_ADDGIC = APP_MAIN_URL + "dic/addDic" ;
+    /**
+     * 根据分页信息和条件分页查询字典列表
+     */
+    public static final String CWYY_GET_PAGEDIC = APP_MAIN_URL + "dic/pageDic" ;
+    /**
+     *	  根据字典id查询字典
+     */
+    public static final String CWYY_GET_DICBYID = APP_MAIN_URL + "dic/getDicById" ;
+    /**
+     *根据id批量删除
+     */
+    public static final String CWYY_GET_DELETEDICBYIDS = APP_MAIN_URL + "dic/deleteDicByIds" ;
+    /**
+     *
+     */
+    public static final String CWYY_GET_= APP_MAIN_URL + "" ;
 
 
     /**

@@ -1,22 +1,21 @@
 package com.lxm.ss.http;
 
+import com.lxm.ss.util.Zlog;
 import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.webkit.CookieManager;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.lxm.ss.util.GsonUtils;
-import com.lxm.ss.util.PreferenceUtils;
-import com.lxm.ss.util.Zlog;
+import com.lxm.ss.pojo.HttpJsonResult;
+import com.lxm .ss.util.GsonUtils;
 
 import org.json.JSONObject;
 
 import java.util.Calendar;
 /**
- * Created by lxm on 2016/11/9.
+ * Created by lxm ss on 2016/11/9.
  */
 
 public class VolleyListenerInterface<T> {
@@ -64,13 +63,13 @@ public class VolleyListenerInterface<T> {
             @Override
             public void onResponse(JSONObject s) {
 
-                doPostCheck(url,true);
+//                doPostCheck(url,true);
                 if (s != null) {
                     String json = s.toString();
-                    Zlog.ii("lxm volley onResponse:"+ mRequestType + "  "+  s.toString());
+                    Zlog.ii("lxm ss volley onResponse:"+ mRequestType + "  "+  s.toString());
                     initJson(json);
                 }else {
-                    Zlog.ii("lxm volley onResponse:null" + mRequestType);
+                    Zlog.ii("lxm ss volley onResponse:null" + mRequestType);
                     if (mHandler != null) {
                         mHandler.obtainMessage(mRequestType, NetUtils.SERVER_RETURN_NULL, 0, failedPrompt)
                                 .sendToTarget();
@@ -85,13 +84,10 @@ public class VolleyListenerInterface<T> {
         Response.Listener<String> mStringListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                doPostCheck(url,true);
+//                doPostCheck(url,true);
                 switch (mRequestType) {
 
-                    //cdn测试
-                    case RequestTypeConstant.REQUEST_TYPE_CDN_TEST:{
 
-                    }break;
                     default:
                         break;
                 }
@@ -108,8 +104,8 @@ public class VolleyListenerInterface<T> {
             public void onErrorResponse(VolleyError volleyError) {
 //                onMyError(volleyError);
 //                saveLocalData(false);
-                doPostCheck(url,false);
-                Zlog.ii("lxm volley onErrorResponse:"+ mRequestType+  volleyError.getMessage());
+//                doPostCheck(url,false);
+                Zlog.ii("lxm ss volley onErrorResponse:"+ mRequestType+  volleyError.getMessage());
                 if (mHandler != null) {
                     mHandler.obtainMessage(mRequestType, NetUtils.SERVER_RETURN_ERROR, 0, failedPrompt)
                             .sendToTarget();
@@ -117,26 +113,7 @@ public class VolleyListenerInterface<T> {
                 //处理保存数据
                 switch(mRequestType) {
 
-//                    case RequestTypeConstant.REQUEST_TYPE_GET_COUNTRYCODE:{
-//
-//                    }break;
-                    case RequestTypeConstant.REQUEST_TYPE_GET_COUNTRYLIST:{
-                        String country = PreferenceUtils.getInstance(mContext).getStringValue("country");
-                        if (TextUtils.isEmpty(country)) {
-                        }
-                    }break;
-                    case RequestTypeConstant.REQUEST_TYPE_GET_SHOPCATEGORY:{
-                        String content = PreferenceUtils.getInstance(mContext).getStringValue(PreferenceUtils.SHOP_CATEGORY);
-                        if (TextUtils.isEmpty(content)) {
-                        }
-                    }break;
 
-                    case RequestTypeConstant.REQUEST_TYPE_GET_HOTSEARCH:{
-
-                    }break;
-                    case RequestTypeConstant.REQUEST_TYPE_GET_UPDATEVERSION:{
-
-                    }break;
                     default:
                         break;
                 }
@@ -150,40 +127,51 @@ public class VolleyListenerInterface<T> {
      * 回执 请求时间
      * @param isSucceed
      */
-    private synchronized void doPostCheck(String checkUrl , boolean isSucceed) {
-        java.text.DecimalFormat df = new java.text.DecimalFormat("#.000");
-        double between = (double) ((Calendar.getInstance()).getTimeInMillis() - begin.getTimeInMillis()) / 1000;
-        String url = "" ;
-        if (isSucceed) {
-
-        }else {
-
-        }
-        HttpUtils.getInstance().executeCheck(mContext,url);
-    }
+//    private synchronized void doPostCheck(String checkUrl , boolean isSucceed) {
+//        java.text.DecimalFormat df = new java.text.DecimalFormat("#.000");
+//        double between = (double) ((Calendar.getInstance()).getTimeInMillis() - begin.getTimeInMillis()) / 1000;
+//        String url = "" ;
+//        if (isSucceed) {
+//
+//        }else {
+//
+//        }
+//        HttpUtils.getInstance().executeCheck(mContext,url);
+//    }
 
     /**
      * 解析
      *
      */
     private synchronized void initJson(String response) {
-        Zlog.ii("lxm httppost initJson 1:" + response);
+        Zlog.ii("lxm ss httppost initJson 1:" + response);
 
-        Object obj = null;
+
         if (TextUtils.isEmpty(response)) {
-            Zlog.ii("lxm httppost initJson 4:" + response);
+            Zlog.ii("lxm ss httppost initJson 4:" + response);
             if (mHandler != null) {
                 mHandler.obtainMessage(mRequestType, NetUtils.SERVER_RETURN_NULL, 0, failedPrompt)
                         .sendToTarget();
             }
         } else {
-            Zlog.ii("lxm httppost  initJson 2:" + response);
+            Zlog.ii("lxm ss httppost  initJson 2:" + response);
+
+            HttpJsonResult httpJsonResult = parseJsonData(response);
+
+            if (httpJsonResult == null) {
+                if (mHandler != null) {
+                    mHandler.obtainMessage(mRequestType, NetUtils.SERVER_RETURN_ERROR, 0, failedPrompt)
+                            .sendToTarget();
+                }
+            }
+            Object obj = null;
             switch (returnType) {
                 case RequestTypeConstant.RETURN_INITJSON_DATA: {
-                    Zlog.ii("lxm httppost  initJson 3:" + response);
+                    Zlog.ii("lxm ss httppost  initJson 3:" + response);
+
                     obj = parseJsonMessage(response);
                     if (obj != null) {
-                        Zlog.ii("lxm httppost  initJson 4:" + obj);
+                        Zlog.ii("lxm ss httppost  initJson 4:" + obj);
                         if (mHandler != null) {
                             mHandler.obtainMessage(mRequestType, NetUtils.SERVER_RETURN_OK, 0, obj).sendToTarget();
                         }
@@ -196,7 +184,7 @@ public class VolleyListenerInterface<T> {
                 }
                 break;
                 case RequestTypeConstant.RETURN_JSON_MESSAGE: {
-                    Zlog.ii("lxm httppost  initJson 5:" + response);
+                    Zlog.ii("lxm ss httppost  initJson 5:" + response);
                     if (mHandler != null) {
                         if (response != null) {
                             mHandler.obtainMessage(mRequestType, NetUtils.SERVER_RETURN_OK, 0, response)
@@ -214,6 +202,29 @@ public class VolleyListenerInterface<T> {
             }
 
         }
+    }
+
+    /**
+     * 解析返回json的message
+     *
+     * @return
+     */
+    private synchronized HttpJsonResult parseJsonData(String message) {
+        if (message == null) {
+            return null;
+        }
+        HttpJsonResult httpJsonResult = null ;
+        TypeToken<HttpJsonResult> typeToken = new TypeToken<HttpJsonResult>() {
+        };
+        try {
+            httpJsonResult  = (HttpJsonResult) GsonUtils.getInstance().parseJson(message,typeToken);
+        }catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            Zlog.i("lxm ss httppost parseJsonData Exception:" + mRequestType + e.getMessage());
+        }
+
+        return httpJsonResult;
+
     }
 
 //    private void saveLocalData(boolean isSucceed,String message) {
@@ -256,34 +267,18 @@ public class VolleyListenerInterface<T> {
         try {
             if (mHandler != null) {
                 o = (T) GsonUtils.getInstance().parseJson(message,typeToken);
-                Zlog.ii("lxm volley parseJsonMessage 2:"+ o.toString());
+                Zlog.ii("lxm ss volley parseJsonMessage 2:"+ o.toString());
             }
             //处理保存数据
             switch(mRequestType) {
-                case RequestTypeConstant.REQUEST_TYPE_GET_COUNTRYCODE:{
-                    PreferenceUtils.getInstance(mContext).setStringValue(PreferenceUtils.COUNTTY_CODE_LOCAL, message);
-                }break;
-                case RequestTypeConstant.REQUEST_TYPE_GET_COUNTRYLIST:{
-                    o = (T) GsonUtils.getInstance().parseJson(message,typeToken);
 
-
-                }break;
-                case RequestTypeConstant.REQUEST_TYPE_GET_SHOPCATEGORY:{
-                }break;
-
-                case RequestTypeConstant.REQUEST_TYPE_GET_HOTSEARCH:{
-                    o = (T) GsonUtils.getInstance().parseJson(message,typeToken);
-                }break;
-                case RequestTypeConstant.REQUEST_TYPE_GET_UPDATEVERSION:{
-
-                }break;
                 default:
                     break;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            Zlog.i("lxm httppost parseJsonReq Exception:" + mRequestType + e.getMessage());
+            Zlog.i("lxm ss httppost parseJsonReq Exception:" + mRequestType + e.getMessage());
         }
         return o;
     }

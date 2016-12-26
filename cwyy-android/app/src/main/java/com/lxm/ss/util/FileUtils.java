@@ -52,7 +52,7 @@ public class FileUtils {
 
   // 获取sd卡上存储文件的路径
   public String getSDPATHWork() {
-    return SDPATH + "yunsj/club/";
+    return SDPATH + "ss/cwyy/";
   }
 
   // 获取sd卡上的可用余额
@@ -87,7 +87,7 @@ public class FileUtils {
 
   // 删除本应用存储目录下的所有文件
   public int CleanWorkingDir() {
-    File root = new File(Environment.getExternalStorageDirectory().getPath() + "/yunsj/club/");
+    File root = new File(Environment.getExternalStorageDirectory().getPath() + "/ss/cwyy/");
     if (DeleteAllFiles(root) != 0) {
       return -1;
     }
@@ -101,7 +101,7 @@ public class FileUtils {
         && Environment.getExternalStorageDirectory().exists()) {
       SDPATH = Environment.getExternalStorageDirectory() + "/";
       try {
-        createSDDir("yunsj/club");
+        createSDDir("ss/cwyy");
         Zlog.ii("lxm :1111");
       } catch (Exception e) {
         Zlog.ii("lxm :1122");
@@ -142,7 +142,7 @@ public class FileUtils {
    */
   public File createSDFile(String fileName) throws IOException {
     System.out.println("createSDFile:" + fileName);
-    File file = new File(SDPATH + "yunsj/club/" + fileName);
+    File file = new File(SDPATH + "ss/cwyy/" + fileName);
     file.createNewFile();
 
 
@@ -154,7 +154,7 @@ public class FileUtils {
    * 判断SD卡上的文件夹是否存在，这里指定文件名
    */
   public boolean isFileExist(String fileName) {
-    File file = new File(SDPATH + "yunsj/club/" + fileName);
+    File file = new File(SDPATH + "ss/cwyy/" + fileName);
     return file.exists();
   }
 
@@ -401,7 +401,7 @@ public class FileUtils {
     long nSDFreeSize = nAvailaBlock * nBlocSize / 1024 / 1024;
     room.totalsize = nSDTotalSize;
     room.freesize = nSDFreeSize;
-    File fil = new File(pathFile.getPath() + "/" + "yunsj/club/");
+    File fil = new File(pathFile.getPath() + "/" + "ss/cwyy/");
     try {
       room.worksize = getFolderSize(fil);
     } catch (Exception e) {

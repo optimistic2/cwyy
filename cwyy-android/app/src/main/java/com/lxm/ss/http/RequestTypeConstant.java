@@ -14,12 +14,6 @@ public class RequestTypeConstant {
 	public static final int RETURN_JSON_MESSAGE = 1001;
 
 
-	public static final int REQUEST_TYPE_GET_COUNTRYCODE = 10000 ;
-	public static final int REQUEST_TYPE_GET_COUNTRYLIST = 10001 ;
-	public static final int REQUEST_TYPE_GET_UPDATEVERSION = 10002 ;
-	public static final int REQUEST_TYPE_GET_SHOPCATEGORY = 10003 ;
-	public static final int REQUEST_TYPE_GET_HOTSEARCH= 10004 ;
-	public static final int REQUEST_TYPE_CDN_TEST =  10005;
-	public static final int REQUEST_TYPE_GET_CARTCOUNT= 10006 ;
+	public static final int REQUEST_TYPE_GET_ADDDIC = 10000 ;
 
 }

@@ -65,6 +65,7 @@ public class HttpUtils {
         };
         // 为当前请求添加标记
         jsonObjectRequest.setTag(mContext);
+        Zlog.ii("lxm ss executeJsonObjectHttpPost " + volleyQueue);
         // 将当前请求添加到请求队列中
         volleyQueue.add(jsonObjectRequest);
         // 重启当前请求队列
@@ -95,44 +96,44 @@ public class HttpUtils {
      * @param mContext
      * @param volleyListenerInterface
      */
-    public synchronized void executeHttpString(Context mContext, VolleyListenerInterface volleyListenerInterface) {
-        RequestQueue volleyQueue = CwyyApplication.getRequestQueue();
+//    public synchronized void executeHttpString(Context mContext, VolleyListenerInterface volleyListenerInterface) {
+//        RequestQueue volleyQueue = CwyyApplication.getRequestQueue();
 //        StringRequest stringRequest = new StringRequest(NetUtils.APP_CDN_CHECK,
 //                volleyListenerInterface.responseStringListener(),
 //                volleyListenerInterface.errorListener()
 //        );
 //        stringRequest.setTag(mContext);  // 用于取消请求的tag;
 //        volleyQueue.add(stringRequest);
-    }
+//    }
 
-    public synchronized void executeCheck(Context mContext, String url) {
+//    public synchronized void executeCheck(Context mContext, String url) {
+//
+//        RequestQueue volleyQueue = CwyyApplication.getRequestQueue();
+//        StringRequest stringRequest = new StringRequest(url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String s) {
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                    }
+//                }
+//        );
+//        stringRequest.setTag(mContext);  // 用于取消请求的tag;
+//        volleyQueue.add(stringRequest);
+//        // 重启当前请求队列
+////        volleyQueue.start();
+//    }
 
-        RequestQueue volleyQueue = CwyyApplication.getRequestQueue();
-        StringRequest stringRequest = new StringRequest(url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                    }
-                }
-        );
-        stringRequest.setTag(mContext);  // 用于取消请求的tag;
-        volleyQueue.add(stringRequest);
-        // 重启当前请求队列
-//        volleyQueue.start();
-    }
+//    /**
+//     *cdn测试（特殊）
+//     * @param mContext
+//     */
+//    public synchronized <T> void executeCdnCheck(final Context mContext) {
 
-    /**
-     *cdn测试（特殊）
-     * @param mContext
-     */
-    public synchronized <T> void executeCdnCheck(final Context mContext) {
-
-        RequestQueue volleyQueue = CwyyApplication.getRequestQueue();
+//        RequestQueue volleyQueue = CwyyApplication.getRequestQueue();
 //        StringRequest stringRequest = new StringRequest(NetUtils.APP_CDN_CHECK,
 //                new Response.Listener<String>() {
 //                    @Override
@@ -165,9 +166,9 @@ public class HttpUtils {
 //        stringRequest.setTag(mContext);  // 用于取消请求的tag;
 //
 //        volleyQueue.add(stringRequest);
-        // 重启当前请求队列
+        //// 重启当前请求队列
 //        volleyQueue.start();
-    }
+//    }
 
     /**
      * // 清除请求队列中的tag标记请求
